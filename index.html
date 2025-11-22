@@ -193,7 +193,11 @@
     </style>
 </head>
 <body>
-
+    
+    <audio id="background-music" loop preload="auto">
+        <source src="özel.mp3" type="audio/mpeg">
+        Tarayıcınız ses etiketini desteklemiyor.
+    </audio>
     <button class="start-btn" id="startBtn">Sürprizi Gör ✨</button>
 
     <div class="scene-container" id="scene">
@@ -225,8 +229,7 @@
             <div class="css-heart"></div>
             <div class="text-inside-heart">Umarım Mutlu Olmuşsundur Yüzün Hep Gülsün ❤️</div>
         </div>
-        <!-- Polaroidler JS ile eklenecek -->
-    </div>
+        </div>
 
     <script>
         const startBtn = document.getElementById('startBtn');
@@ -236,6 +239,9 @@
         const questionBox = document.getElementById('questionBox');
         const yesBtn = document.getElementById('yesBtn');
         const finaleScreen = document.getElementById('finaleScreen');
+        // ŞARKI EKLEME: Ses nesnesi tanımlandı.
+        const audio = document.getElementById('background-music');
+
 
         function buildFlowers() {
             const heads = document.querySelectorAll('.flower-head');
@@ -278,6 +284,10 @@
         const wait = (ms) => new Promise(r => setTimeout(r, ms));
 
         startBtn.addEventListener('click', async () => {
+            // ŞARKI EKLEME: Kullanıcı etkileşimi üzerine müziği başlat.
+            audio.play().catch(e => console.warn("Müzik otomatik başlatılamadı:", e));
+
+
             startBtn.style.transform = 'scale(0)';
             await wait(300);
             startBtn.style.display = 'none';
@@ -309,6 +319,9 @@
         });
 
         yesBtn.addEventListener('click', () => {
+            // İsteğe bağlı: Final ekranı açılınca müziği durdurmak isterseniz bu satırı ekleyin.
+            // audio.pause();
+
             questionBox.classList.remove('show');
             scene.style.transition = 'filter 1s, opacity 1s';
             scene.style.filter = 'blur(8px)';
